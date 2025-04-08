@@ -2,18 +2,18 @@ PROG = main
 
 CC = g++
 CXXFLAGS = -Wall -Wextra -O3
-#CXXFLAGS += -Ilib/glad/include
-#CXXFLAGS += -Ilib/glm/
-#CXXFLAGS += -Ilib/glfw/include
-#CXXFLAGS += -Ilib/stb
+CXXFLAGS += -Ilib/glad/include
+CXXFLAGS += -Ilib/glm/
+CXXFLAGS += -Ilib/glfw/include
+CXXFLAGS += -Ilib/stb
 
 LDFLAGS = -lm
-#LDFLAGS += -lGL -lX11 -lpthread -lXrandr -lXi -ldl
-#LDFLAGS += -lglad -lstb_image -lglfw3 -lglm
-#LDFLAGS += -Llib/glad/
-#LDFLAGS += -Llib/stb/
-#LDFLAGS += -Llib/glfw/src/
-#LDFLAGS += -Llib/glm/glm/
+LDFLAGS += -lGL -lX11 -lpthread -lXrandr -lXi -ldl
+LDFLAGS += -lglad -lstb_image -lglfw3 -lglm
+LDFLAGS += -Llib/glad/
+LDFLAGS += -Llib/stb/
+LDFLAGS += -Llib/glfw/src/
+LDFLAGS += -Llib/glm/glm/
 
 
 CXXSRC = $(wildcard src/*.cpp) $(wildcard src/**/*.cpp)
