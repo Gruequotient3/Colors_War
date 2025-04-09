@@ -9,23 +9,23 @@ CXXFLAGS += -Ilib/stb
 
 LDFLAGS = -lm
 LDFLAGS += -lGL -lX11 -lpthread -lXrandr -lXi -ldl
-LDFLAGS += -lglad -lstb_image -lglfw3 -lglm
 LDFLAGS += -Llib/glad/
 LDFLAGS += -Llib/stb/
 LDFLAGS += -Llib/glfw/src/
 LDFLAGS += -Llib/glm/glm/
+LDFLAGS += -lglad -lstb_image -lglfw3 -lglm
 
 
-CXXSRC = $(wildcard src/*.cpp) $(wildcard src/**/*.cpp)
+SOURCES = $(wildcard src/*.cpp) $(wildcard src/**/*.cpp)
 
-OBJ = $(CXXSRC:.cpp=.o)
+OBJ = $(SOURCES:.cpp=.o)
 
 RM = rm -rf
 
 all: $(PROG)
 
 $(PROG): $(OBJ)
-	$(CC) -o main $(OBJ) $(LDFLAGS)
+	$(CC) $(OBJ) $(LDFLAGS) -o $(PROG)
 
 libs:
 	@cd lib/glm && cmake . -DCGLM_STATIC=ON && make
