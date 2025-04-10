@@ -2,8 +2,8 @@
 #define SHADER_HPP
 
 #include <glad/glad.h>
-
 #include <glm/glm.hpp>
+#include <string>
 
 class Shader{
     private:

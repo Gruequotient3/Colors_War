@@ -128,25 +128,4 @@ void Shader::CheckCompileErrors(unsigned int shader, std::string type){
     }
 }
 
-
-void Shader::CheckCompileErrors(unsigned int shader, std::string type){
-    int success;
-    char infoLog[512];
-    if (type != "PROGRAM"){
-        glGetShaderiv(shader, GL_COMPILE_STATUS, &success);
-        if (!success){
-            glGetShaderInfoLog(shader, 512, NULL, infoLog);
-            std::cout << "ERROR::SHADER::" << type << "::COMPILATION_FAILED\n" << infoLog << std::endl;
-        }
-    }
-    else{
-        glGetProgramiv(shader, GL_LINK_STATUS, &success);
-        if (!success){
-            glGetProgramInfoLog(shader, 512, NULL, infoLog);
-            std::cout << "ERROR::SHADER::" << type << "::LINKING_FAILED\n" << infoLog << std::endl;
-
-        }
-    }
-}
-
 #endif
