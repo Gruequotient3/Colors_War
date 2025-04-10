@@ -79,6 +79,56 @@ void Shader::Use(){
     glUseProgram(id);
 }
 
+void Shader::SetBool(const std::string &name, bool value) const{
+    glUniform1i(glGetUniformLocation(id, name.c_str()), (int)value);
+}
+
+void Shader::SetFloat(const std::string &name, float value) const{
+    glUniform1f(glGetUniformLocation(id, name.c_str()), value);
+}
+
+void Shader::SetFloatp(const std::string &name, int count, float* value) const{
+    glUniform1fv(glGetUniformLocation(id, name.c_str()), count, value);
+}
+
+void Shader::SetInt(const std::string &name, int value) const{
+    glUniform1i(glGetUniformLocation(id, name.c_str()), value);
+}
+
+void Shader::SetVec3(const std::string &name, glm::vec3 value) const{
+    glUniform3f(glGetUniformLocation(id, name.c_str()), value.x, value.y, value.z);
+}
+
+void Shader::SetVec3p(const std::string &name, int count, const float* value) const{
+    glUniform3fv(glGetUniformLocation(id, name.c_str()), count, value);
+}
+
+void Shader::SetMat4(const std::string &name, GLboolean transpose, const GLfloat *value) const{
+    glUniformMatrix4fv(glGetUniformLocation(id, name.c_str()), 1, transpose, value);
+}
+
+
+void Shader::CheckCompileErrors(unsigned int shader, std::string type){
+    int success;
+    char infoLog[512];
+    if (type != "PROGRAM"){
+        glGetShaderiv(shader, GL_COMPILE_STATUS, &success);
+        if (!success){
+            glGetShaderInfoLog(shader, 512, NULL, infoLog);
+            std::cout << "ERROR::SHADER::" << type << "::COMPILATION_FAILED\n" << infoLog << std::endl;
+        }
+    }
+    else{
+        glGetProgramiv(shader, GL_LINK_STATUS, &success);
+        if (!success){
+            glGetProgramInfoLog(shader, 512, NULL, infoLog);
+            std::cout << "ERROR::SHADER::" << type << "::LINKING_FAILED\n" << infoLog << std::endl;
+
+        }
+    }
+}
+
+
 void Shader::CheckCompileErrors(unsigned int shader, std::string type){
     int success;
     char infoLog[512];
