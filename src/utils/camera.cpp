@@ -1,6 +1,5 @@
 #ifndef CAMERA_CPP
 #define CAMERA_CPP
-#define GLM_ENABLE_EXPERIMENTAL
 
 #include "camera.hpp"
 
@@ -8,7 +7,6 @@
 
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
-#include <glm/gtx/string_cast.hpp>
 
 Camera::Camera(float ratio){
     this->ratio = ratio;
