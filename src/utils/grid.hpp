@@ -6,6 +6,7 @@
 class Grid{
     public:
         static glm::vec3 ScreenToWorld();
+        static glm::vec3 ScreenToWorld(glm::vec2 normPos);
         static glm::vec3 WorldToGrid(glm::vec3 pos);
 };
 
