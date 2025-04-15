@@ -32,8 +32,6 @@ glm::vec3 Grid::ScreenToWorld(){
 }
 
 glm::vec3 Grid::ScreenToWorld(glm::vec2 normPos){
-    int w, h;
-    
     glm::mat4 proj = (glm::mat4)*Game::camera.GetProjectionMatrice();
     glm::mat4 view = (glm::mat4)*Game::camera.GetViewMatrice();
     glm::vec4 res;
