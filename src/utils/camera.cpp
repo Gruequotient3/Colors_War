@@ -14,7 +14,7 @@ Camera::Camera(float ratio){
     pitch = 0.0f;
     fov = 90.0f;
 
-    position = glm::vec3{0.0f, 0.0f, 1.0f};
+    position = glm::vec3{0.0f, 0.0f, 5.0f};
     front = glm::vec3(0.0f, 0.0f, -1.0f);
     up = glm::vec3(0.0f, 1.0f, 0.0f);
 
