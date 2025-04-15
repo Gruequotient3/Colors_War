@@ -43,6 +43,8 @@ void Texture::LoadTexture(const char *imagePath, GLenum format){
     }
     stbi_image_free(data);
     glPixelStorei(GL_UNPACK_ALIGNMENT, 4);
+
+    glBindTexture(type, 0);
 }
 
 
