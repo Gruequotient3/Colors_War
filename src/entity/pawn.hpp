@@ -1,6 +1,10 @@
 #ifndef PAWN_HPP
 #define PAWN_HPP
 
+#include <glm/glm.hpp>
+
+#include "../gfx/sprite.hpp"
+
 enum PawnType {PAWN, CASTLE, WARRIOR, LORD, FARMER};
 
 class Pawn{
@@ -11,8 +15,15 @@ class Pawn{
         int prod;
         int mp; // Movement point
         PawnType type;
-        Pawn(int hp, int power, int cost, int prod, int mp, PawnType type);
+
+        Sprite sprite;
+        
+        glm::vec3 position;
+
+        Pawn(int hp, int power, int cost, int prod, int mp, PawnType type, Sprite sprite);
         virtual ~Pawn();
+
+        void Draw(Shader &shader);
 };
 
 class Castle : public Pawn{
