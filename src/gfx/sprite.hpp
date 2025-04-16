@@ -7,9 +7,10 @@
 class Sprite{
     private:
     public:
-        Mesh mesh;
+        static Mesh mesh;
         Texture texture;
         
+        Sprite();
         Sprite(Texture &texture);
         
         void Draw(Shader &shader, glm::vec3 position);

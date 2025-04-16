@@ -8,9 +8,9 @@
 #include "sprite.hpp"
 #include "../utils/game.hpp"
 
-Sprite::Sprite(Texture &texture) : texture{texture} {
-    mesh = Mesh::GetQuadMesh();
-}
+Mesh Sprite::mesh = Mesh::GetQuadMesh();
+Sprite::Sprite() { }
+Sprite::Sprite(Texture &texture) : texture{texture} { }
 
 void Sprite::Draw(Shader &shader, glm::vec3 position){
     shader.Use();
