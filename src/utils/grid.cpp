@@ -7,7 +7,7 @@
 #include <iostream> 
 #include <cmath>
 
-#include "game.hpp"
+#include "../game.hpp"
 #include "grid.hpp"
 
 glm::vec3 Grid::ScreenToWorld(){
@@ -50,5 +50,10 @@ glm::vec3 Grid::ScreenToWorld(glm::vec2 normPos){
 glm::vec3 Grid::WorldToGrid(glm::vec3 pos){
     return glm::floor(pos + 0.5f);
 }  
+
+int Grid::Distance(glm::ivec2 start, glm::ivec2 end){
+    glm::ivec2 endToStart = end - start;
+    return abs(endToStart.x) + abs(endToStart.y);
+}
 
 #endif

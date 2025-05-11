@@ -7,12 +7,36 @@
 #include <vector>
 
 enum TextureIndex {
-    GROUND_TEX,
-    PAWN_TEX,
+
+    // Tile Sprite
+    GROUND_TEX_B = 0,
+    GROUND_TEX_E = 3,
+    FARM_TEX,
+    
+    // Pawn Sprite
     CASTLE_TEX,
     WARRIOR_TEX,
     LORD_TEX,
     FARMER_TEX,
+    
+    // ButtonSprite
+    ICASTLE_TEX,
+    HCASTLE_TEX,
+    CCASTLE_TEX,
+    
+    IWARRIOR_TEX,
+    HWARRIOR_TEX,
+    CWARRIOR_TEX,
+    
+    ILORD_TEX,
+    HLORD_TEX,
+    CLORD_TEX,
+    
+    IFARMER_TEX,
+    HFARMER_TEX,
+    CFARMER_TEX,
+    
+    COIN_TEX,
 };
 
 class Texture{
@@ -24,23 +48,19 @@ class Texture{
     
         Texture();
         Texture(const char *imagePath, GLenum format);
-    
+        
+        void Destroy();
         void LoadTexture(const char *imagePath, GLenum format);
 };
 
 class TextureList{
     public: 
         std::vector<Texture> textures;
+    
+        void Destroy();
+        void LoadTexture();
 
-        void LoadTexture(){
-            textures.clear();
-            textures.push_back(Texture{"res/img/ground.jpeg", GL_RGB}); // Ground
-            textures.push_back(Texture{"res/img/ground.jpeg", GL_RGB}); // Pawn
-            textures.push_back(Texture{"res/img/ground.jpeg", GL_RGB}); // Castle
-            textures.push_back(Texture{"res/img/ground.jpeg", GL_RGB}); // Warrior
-            textures.push_back(Texture{"res/img/ground.jpeg", GL_RGB}); // Lord
-            textures.push_back(Texture{"res/img/ground.jpeg", GL_RGB}); // Farmer
-        }
+        Texture &operator[](int pos);
 };
 
 #endif

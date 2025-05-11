@@ -27,10 +27,12 @@ class Mesh{
         ~Mesh();
 
         void GenerateMesh();
+        void DestroyMesh();
 
         void Draw(Shader &shader);
 
         static Mesh GetQuadMesh();
 };
+
 
 #endif

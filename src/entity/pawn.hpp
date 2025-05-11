@@ -3,46 +3,80 @@
 
 #include <glm/glm.hpp>
 
+#include "pawnstat.hpp"
 #include "../gfx/sprite.hpp"
+#include "../utils/tilemap.hpp"
 
-enum PawnType {PAWN, CASTLE, WARRIOR, LORD, FARMER};
+enum PawnType {CASTLE, WARRIOR, LORD, FARMER};
+
+struct PawnTags{
+    bool can_attack;
+    bool can_move;
+    bool can_prod;
+    bool can_harvest;
+    bool on_cooldown;
+};
 
 class Pawn{
-    public:
-        int hp; // Health point
-        int power;
-        int cost;
-        int prod;
-        int mp; // Movement point
-        PawnType type;
-
+    private:
         Sprite sprite;
+
+
+    protected:
+        int initMp;
+        int initHp;
         
+        PawnTags tags;
+        
+    public:
+        PawnType type;
+    
+        PawnStat stat;
+
         glm::vec3 position;
 
-        Pawn(int hp, int power, int cost, int prod, int mp, PawnType type, Sprite sprite);
+        Pawn(int hp, int power, int cost, int prod, int mp, int range, PawnType type, Sprite sprite, glm::vec3 position);
+        Pawn(PawnStat stat, PawnType type, Sprite sprite, glm::vec3 position);
         virtual ~Pawn();
+        
+        virtual void Reset();
+        int Move(glm::vec3 newPosition, Tilemap &tilemap);
+        void Attack(Pawn &pawn, Tilemap &tilemap);
+        void Generate(int &coins); 
 
-        void Draw(Shader &shader);
+        bool IsDead() const;
+
+        PawnTags& GetTags();
+
+        void Draw(Shader &shader) const;
 };
 
 class Castle : public Pawn{
     public:
-        Castle();
+
+        Castle(glm::vec3 position);
+
+        void Reset();
 };
 
 class Warrior : public Pawn{
     public:
-        Warrior();
+        Warrior(glm::vec3 position);
+
+        void Reset();
 };
 
 class Lord : public Pawn{
     public:
-        Lord();
+        Lord(glm::vec3 position);
+
+        void Reset();
 };
 
 class Farmer : public Pawn{
     public:
-        Farmer();
+        Farmer(glm::vec3 position);
+
+        void Reset();
 };
 #endif

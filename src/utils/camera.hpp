@@ -7,9 +7,12 @@ class Camera{
     private:
         glm::mat4 view;
         glm::mat4 projection;
+        glm::mat4 orthographic;
 
     public:
         float ratio;
+        float width;
+        int height;
 
         float yaw;
         float pitch;
@@ -19,12 +22,13 @@ class Camera{
         glm::vec3 front;
         glm::vec3 up;
 
-        Camera(float ratio);
+        Camera(float ratio, int width, int height);
 
         void Update();
 
         float *GetViewMatrice();
         float *GetProjectionMatrice();
+        float *GetOrthogaphicMatrice();
 };
 
 #endif

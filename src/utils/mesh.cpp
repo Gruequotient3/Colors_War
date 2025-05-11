@@ -3,12 +3,12 @@
 
 #include "mesh.hpp"
 
+#include <iostream>
+
 Mesh::Mesh() : vao{0}, vbo{0}, ebo{0} { }
 
 Mesh::~Mesh(){
-    if (vao) glDeleteVertexArrays(1, &vao);
-    if (vbo) glDeleteBuffers(1, &vbo);
-    if (ebo) glDeleteBuffers(1, &ebo);
+    DestroyMesh();
 }
 
 void Mesh::GenerateMesh(){
@@ -41,6 +41,12 @@ void Mesh::GenerateMesh(){
                           (void*)offsetof(Vertex, texCoord));
 
     glBindVertexArray(0);
+}
+
+void Mesh::DestroyMesh(){
+    if (vao) { glDeleteVertexArrays(1, &vao); vao = 0;}
+    if (vbo) { glDeleteBuffers(1, &vbo); vbo = 0;} 
+    if (ebo) { glDeleteBuffers(1, &ebo); ebo = 0;}
 }
 
 void Mesh::Draw(Shader &shader){

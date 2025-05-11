@@ -8,6 +8,8 @@
 
 #include "shader.hpp"
 
+
+Shader::Shader() : id{0} { }
 Shader::Shader(const char *vertexPath, const char *fragmentPath){
     std::string vertexCode;
     std::string fragmentCode;
@@ -70,12 +72,12 @@ Shader::Shader(const char *vertexPath, const char *fragmentPath){
     glDeleteShader(fragment);
 }
 
-Shader::~Shader(){
-    if (id) glDeleteProgram(id);
+void Shader::Destroy(){
+    if (id) { glDeleteProgram(id); id = 0; }
 }
 
-void Shader::Use(){
 
+void Shader::Use(){
     glUseProgram(id);
 }
 
@@ -93,6 +95,10 @@ void Shader::SetFloatp(const std::string &name, int count, float* value) const{
 
 void Shader::SetInt(const std::string &name, int value) const{
     glUniform1i(glGetUniformLocation(id, name.c_str()), value);
+}
+
+void Shader::SetIvec2(const std::string &name, glm::ivec2 value) const{
+    glUniform2i(glGetUniformLocation(id, name.c_str()), value.x, value.y);
 }
 
 void Shader::SetVec3(const std::string &name, glm::vec3 value) const{
@@ -127,5 +133,28 @@ void Shader::CheckCompileErrors(unsigned int shader, std::string type){
         }
     }
 }
+
+void ShaderList::Destroy(){
+    std::vector<Shader>::iterator it;
+    for (it = shaders.begin(); it != shaders.end(); ++it){
+        it->Destroy();
+    }
+    shaders.clear();
+}
+
+void ShaderList::LoadShader(){
+    Destroy();
+
+    shaders.push_back(Shader{"res/shaders/shader.vert", "res/shaders/shader.frag"});
+    shaders.push_back(Shader{"res/shaders/text.vert", "res/shaders/text.frag"});
+}
+
+Shader &ShaderList::operator[](int pos){
+    if (pos < 0 || pos >= (int)shaders.size()) exit(EXIT_FAILURE);
+    return shaders[pos];
+}
+
+
+
 
 #endif

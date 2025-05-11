@@ -1,8 +1,7 @@
-#include "utils/game.hpp"
+#include "game.hpp"
 
 int main(){
     Game game;
-    game.Update();
+    game.Play();
     return 0;
-
 }
