@@ -11,7 +11,7 @@ https://github.com/Gruequotient3/Colors_War.git
 
 ```bash
 git clone https://github.com/Gruequotient3/Colors_War.git
-cd colors_wars/
+cd Colors_War/
 git submodule update --init --recursive 
 make libs && make
 ```
