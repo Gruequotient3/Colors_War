@@ -113,9 +113,9 @@ void GUIHud::Init(){
     coins.texture = &Game::textureList.textures[COIN_TEX];
     endTurn.position =  glm::vec2(0.8f, -0.9);
     endTurn.size = glm::vec2(1.0f);
-    endTurn.SetSprite(IDLE, Game::textureList[CASTLE_TEX]);
-    endTurn.SetSprite(HOVER, Game::textureList[WARRIOR_TEX]);
-    endTurn.SetSprite(CLICKED, Game::textureList[LORD_TEX]);
+    endTurn.SetSprite(IDLE, Game::textureList[ISKIP_TEX]);
+    endTurn.SetSprite(HOVER, Game::textureList[HSKIP_TEX]);
+    endTurn.SetSprite(CLICKED, Game::textureList[CSKIP_TEX]);
 }
 
 int GUIHud::Update(){
@@ -131,6 +131,8 @@ void GUIHud::RenderGui(Shader &shader){
     int w, h;
     glfwGetWindowSize(Game::window, &w, &h);
 
+    shader.Use();
+    shader.SetInt("outlined", 0);
     // Render sprites
     float sizeFactor = Game::camera.position.z * 0.2f;
     coins.Draw(shader, Grid::ScreenToWorld(glm::vec2(-0.8f, -0.9)), glm::vec3(glm::vec2(0.9f) * sizeFactor, 1.0f));

@@ -35,6 +35,10 @@ enum TextureIndex {
     IFARMER_TEX,
     HFARMER_TEX,
     CFARMER_TEX,
+
+    ISKIP_TEX,
+    HSKIP_TEX,
+    CSKIP_TEX,
     
     COIN_TEX,
 };

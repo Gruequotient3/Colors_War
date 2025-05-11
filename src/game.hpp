@@ -58,7 +58,7 @@ class Game{
 
 
         int playerTurn;
-        Player *winner;
+        int winner;
 
         Game();
         ~Game();

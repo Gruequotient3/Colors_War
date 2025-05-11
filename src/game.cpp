@@ -107,7 +107,7 @@ void Game::Init(){
 
 void Game::Start(){
     playerTurn = 0;
-    winner = nullptr;
+    winner = -1;
 
     // Clear players pawn data
     players[0].pawns.Clear();
@@ -160,12 +160,12 @@ void Game::Play(){
 
             case ROUND_END:
                 if (!players[0].HaveCastle()){
-                    winner = &players[0];
+                    winner = 1;
                     gameState = GAME_OVER;
                     break;
                 }
                 if (!players[1].HaveCastle()){
-                    winner = &players[1];
+                    winner = 0;
                     gameState = GAME_OVER;
                     break;
                 }
@@ -174,7 +174,6 @@ void Game::Play(){
                 break;
 
             case GAME_OVER: 
-                glfwSetWindowShouldClose(window, true);
                 break;
                 
             default:
@@ -191,60 +190,71 @@ void Game::Play(){
 }
 
 void Game::Render(){
-    // Render Tilemap
-    if (selected){
-        shaderList[DEFAULT_SHAD].Use();
-        shaderList[DEFAULT_SHAD].SetInt("tilemapMode", 1);
-        shaderList[DEFAULT_SHAD].SetIvec2("selPos", glm::ivec2(selected->position));
-        shaderList[DEFAULT_SHAD].SetInt("mp", selected->stat.mp);
-    }
-    tilemap.Draw(shaderList[DEFAULT_SHAD]);
-    shaderList[DEFAULT_SHAD].SetInt("tilemapMode", 0);
+    int w, h;
+    glfwGetWindowSize(window, &w, &h);
 
-    // Render Players Pawns
-    for (int i = 0; i < 2; ++i){
-        players[i].RenderPawns(shaderList[DEFAULT_SHAD], selected);
-    }
-    
-    if (selected){
-        const PawnTags &tags = selected->GetTags();
-        switch(selected->type){
-            case CASTLE:
-                if (!tags.on_cooldown && players[playerTurn].ContainPawn(*selected)){
-                    if (pawnSpawnGUI.Update(players[playerTurn], *selected, tilemap)){
-                        selected = nullptr;
-                    }
-                    pawnSpawnGUI.RenderGui(shaderList[DEFAULT_SHAD]);
-                }
-                break;
-            case LORD:
-                if (!(tags.on_cooldown) && players[playerTurn].ContainPawn(*selected)){
-                    if (transformLordGUI.Update(players[playerTurn], *selected, tilemap)){
-                        selected = nullptr;
-                    }
-                    transformLordGUI.RenderGui(shaderList[DEFAULT_SHAD]);
-                }
-                break;
-            case FARMER:
-                if (!tags.on_cooldown && players[playerTurn].ContainPawn(*selected)){
-                    Tile *tile = tilemap.GetTile(glm::ivec2(selected->position));
-                    if (tile && tile->tags.can_harvest){
-                        if (harvestGUI.Update(players[playerTurn], *selected)){
+    switch(gameState){
+        case GAME_OVER:
+            textRenderer.RenderText("Winner : player " + std::to_string(winner), w / 2.0f * (-0.2f), 0.0f, 1.0f, players[winner].color);
+            break;
+        default:
+            // Render Tilemap
+            if (selected){
+                shaderList[DEFAULT_SHAD].Use();
+                shaderList[DEFAULT_SHAD].SetInt("tilemapMode", 1);
+                shaderList[DEFAULT_SHAD].SetIvec2("selPos", glm::ivec2(selected->position));
+                shaderList[DEFAULT_SHAD].SetInt("mp", selected->stat.mp);
+            }
+            tilemap.Draw(shaderList[DEFAULT_SHAD]);
+            shaderList[DEFAULT_SHAD].SetInt("tilemapMode", 0);
+
+            // Render Players Pawns
+            for (int i = 0; i < 2; ++i){
+                players[i].RenderPawns(shaderList[DEFAULT_SHAD], selected);
+            }
+
+            if (selected){
+                const PawnTags &tags = selected->GetTags();
+                switch(selected->type){
+                    case CASTLE:
+                    if (!tags.on_cooldown && players[playerTurn].ContainPawn(*selected)){
+                        if (pawnSpawnGUI.Update(players[playerTurn], *selected, tilemap)){
                             selected = nullptr;
                         }
-                        harvestGUI.RenderGui(shaderList[DEFAULT_SHAD]);
+                        pawnSpawnGUI.RenderGui(shaderList[DEFAULT_SHAD]);
                     }
+                    break;
+                    case LORD:
+                    if (!(tags.on_cooldown) && players[playerTurn].ContainPawn(*selected)){
+                        if (transformLordGUI.Update(players[playerTurn], *selected, tilemap)){
+                            selected = nullptr;
+                        }
+                        transformLordGUI.RenderGui(shaderList[DEFAULT_SHAD]);
+                    }
+                    break;
+                    case FARMER:
+                    if (!tags.on_cooldown && players[playerTurn].ContainPawn(*selected)){
+                        Tile *tile = tilemap.GetTile(glm::ivec2(selected->position));
+                        if (tile && tile->tags.can_harvest){
+                            if (harvestGUI.Update(players[playerTurn], *selected)){
+                                selected = nullptr;
+                            }
+                            harvestGUI.RenderGui(shaderList[DEFAULT_SHAD]);
+                        }
+                    }
+                    break;
+                    default:
+                    break;
                 }
-                break;
-            default:
-                break;
-        }
+            }
+            // Render HUD
+            hudGUI.nbCoins = players[playerTurn].coins;
+            if (hudGUI.Update() && gameState == ROUND) gameState = ROUND_END;
+            hudGUI.RenderGui(shaderList[DEFAULT_SHAD]);
+            break;
     }
     
-    // Render HUD
-    hudGUI.nbCoins = players[playerTurn].coins;
-    if (hudGUI.Update() && gameState == ROUND) gameState = ROUND_END;
-    hudGUI.RenderGui(shaderList[DEFAULT_SHAD]);
+   
 }
 
 

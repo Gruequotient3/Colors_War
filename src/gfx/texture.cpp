@@ -64,7 +64,7 @@ void TextureList::LoadTexture(){
     textures.push_back(Texture{"res/img/sprites/ground1.png", GL_RGBA}); // Ground1
     textures.push_back(Texture{"res/img/sprites/ground2.png", GL_RGBA}); // Ground2
     textures.push_back(Texture{"res/img/sprites/ground3.png", GL_RGBA}); // Ground3
-    textures.push_back(Texture{"res/img/sprites/castle.png", GL_RGBA}); // FARM (To do)
+    textures.push_back(Texture{"res/img/sprites/farm.png", GL_RGBA}); // FARM (To do)
     textures.push_back(Texture{"res/img/sprites/castle.png", GL_RGBA}); // Castle
     textures.push_back(Texture{"res/img/sprites/warrior.png", GL_RGBA}); // Warrior
     textures.push_back(Texture{"res/img/sprites/lord.png", GL_RGBA}); // Lord
@@ -72,16 +72,19 @@ void TextureList::LoadTexture(){
     textures.push_back(Texture{"res/img/button/IdleCastleButton.png", GL_RGBA}); // Castle Button IDLE
     textures.push_back(Texture{"res/img/button/HoverCastleButton.png", GL_RGBA}); // Castle Button Hover
     textures.push_back(Texture{"res/img/button/ClickedCastleButton.png", GL_RGBA}); // Castle Button Clicked
-    textures.push_back(Texture{"res/img/button/IdleCastleButton.png", GL_RGBA}); // Warrior Button IDLE
-    textures.push_back(Texture{"res/img/button/HoverCastleButton.png", GL_RGBA}); // Warrior Button Hover
-    textures.push_back(Texture{"res/img/button/ClickedCastleButton.png", GL_RGBA}); // Warrior Button Clicked
-    textures.push_back(Texture{"res/img/button/IdleCastleButton.png", GL_RGBA}); // Lord Button IDLE
-    textures.push_back(Texture{"res/img/button/HoverCastleButton.png", GL_RGBA}); // Lord Button Hover
-    textures.push_back(Texture{"res/img/button/ClickedCastleButton.png", GL_RGBA}); // Lord Button Clicked
-    textures.push_back(Texture{"res/img/button/IdleCastleButton.png", GL_RGBA}); // Farmer Button IDLE
-    textures.push_back(Texture{"res/img/button/HoverCastleButton.png", GL_RGBA}); // Farmer Button Hover
-    textures.push_back(Texture{"res/img/button/ClickedCastleButton.png", GL_RGBA}); // Farmer Button Clicked
-    textures.push_back(Texture{"res/img/sprites/ground0.png", GL_RGBA}); // Coin (To do)
+    textures.push_back(Texture{"res/img/button/IdleWarriorButton.png", GL_RGBA}); // Warrior Button IDLE
+    textures.push_back(Texture{"res/img/button/HoverWarriorButton.png", GL_RGBA}); // Warrior Button Hover
+    textures.push_back(Texture{"res/img/button/ClickedWarriorButton.png", GL_RGBA}); // Warrior Button Clicked
+    textures.push_back(Texture{"res/img/button/IdleLordButton.png", GL_RGBA}); // Lord Button IDLE
+    textures.push_back(Texture{"res/img/button/HoverLordButton.png", GL_RGBA}); // Lord Button Hover
+    textures.push_back(Texture{"res/img/button/ClickedLordButton.png", GL_RGBA}); // Lord Button Clicked
+    textures.push_back(Texture{"res/img/button/IdleFarmerButton.png", GL_RGBA}); // Farmer Button IDLE
+    textures.push_back(Texture{"res/img/button/HoverFarmerButton.png", GL_RGBA}); // Farmer Button Hover
+    textures.push_back(Texture{"res/img/button/ClickedFarmerButton.png", GL_RGBA}); // Skip Button Clicked
+    textures.push_back(Texture{"res/img/button/IdleSkipButton.png", GL_RGBA}); // Skip Button Idle
+    textures.push_back(Texture{"res/img/button/HoverSkipButton.png", GL_RGBA}); // Skip Button Hover
+    textures.push_back(Texture{"res/img/button/ClickedSkipButton.png", GL_RGBA}); // Skip Button Clicked
+    textures.push_back(Texture{"res/img/sprites/coin.png", GL_RGBA}); // Coin (To do)
 }
 
 Texture &TextureList::operator[](int pos){
